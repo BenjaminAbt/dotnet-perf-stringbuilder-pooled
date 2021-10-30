@@ -12,15 +12,18 @@ For better comparability, additional string concat were added.
 
 ## 🏁 Results
 
-- 🔋 StringBuilder has the best performance and lowest allocations
+- 🔋 StringBuilder itself has the best performance and lowest allocations
 - 🐏 No additional memory allocations (only if strings are huge) for the string builder instance
 - 🏃‍♀️ The larger the strings, the clearer the performance advantage for pooling.
+- 🏎️ Pooling is a performance boost
 - 🚀 The ratio clearly shows: without pool up always slower and huge allocations (incl. expensive Gen2) for this sample
 - 🎒 ConcatList uses string.concat(IEnumable), which uses the internal type [ValueStringBuilder](https://github.com/dotnet/runtime/blob/46a3bfeffec2fb6b33bfd152d33f33b544e401c9/src/libraries/System.Private.CoreLib/src/System/String.Manipulation.cs#L193) under the hood, why the allocation is almost the same
 
 ## Remarks
 
-- There are also more performant solutions with unsafe code.
+- This sample is about pooling, not about string operations in general.
+- Pooling is great and powerful
+- For strings, there are also more performant solutions with unsafe code.
 - If you know the total string size, use string.create to benefit from pre-allocations.
 
 ## ⌨️ Run this sample
@@ -29,4 +32,4 @@ For better comparability, additional string concat were added.
 dotnet run -c Release
 ```
 
-This benchmark runs several minutes (2:50min min on my workstation)
+This benchmark runs several minutes (2:50min on my workstation)
